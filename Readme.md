@@ -1,6 +1,7 @@
 # Transition based Statistical Dependency Parsing
 
 1. Introduction:
+
 Dependency parsing is a fundamental task in Natural Language Processing (NLP), which focuses on analyzing the syntactic structure of sentences by parsing the dependencies between words. 
 
 The main goal of this project is to implement a dependency parser based on a transition-based system in statistical methods, trained on English and German data in CoNLL06 format. Finally, the obtained parser and model are used to analyze the English and German test datasets to obtain the dependency relations for each word in each sentence and return the analysis result file.
