@@ -9,7 +9,7 @@ import _pickle as cPickle
 import gzip
 
 ###1.read a model
-file_read_model = '/german_model.txt'
+file_read_model = '/results/german_model.txt'
 filepath_read_model = sys.path[0] + file_read_model
 stream=gzip.open(filepath_read_model, 'rb')
 features_map=cPickle.load(stream)
@@ -39,7 +39,7 @@ for i in range(num_sentences): #range(len(sents_gold)):  # a sentence in all sen
     heads_list_all.append(the_state[2]) #get test dates all sentences' head sequences
 
 #3)write
-file_write_conll06 = '/result_ger_test_pred.txt'
+file_write_conll06 = '/results/result_ger_test_pred.txt'
 filepath_write_conll06= sys.path[0] + file_write_conll06
 
 write(filepath_write_conll06,sents_test,heads_list_all)

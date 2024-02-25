@@ -49,7 +49,7 @@ train_instances_features_all.get_instances(features_tran_pairs_all_sentences)
 f_len=len(train_data_all_f.features_dic) #to initialize weight
 weights=train_perceptron(10,train_instances_features_all.instances,f_len) #perceptron train
 #3.save a model
-file_write_model = '/german_model.txt'
+file_write_model = '/results/german_model.txt'
 filepath_write_model = sys.path[0] +  file_write_model
 stream=gzip.open(filepath_write_model,'wb')
 cPickle.dump(train_data_all_f.features_dic, stream, -1)
@@ -100,6 +100,6 @@ uas_result = "%.2f%%" % ( uas/num_sentences * 100)
 print(uas_result)
 
 #5).write
-file_write_conll06 = '/result_german_dev_pred.txt'
+file_write_conll06 = '/results/result_german_dev_pred.txt'
 filepath_write_conll06= sys.path[0] +  file_write_conll06
 write(filepath_write_conll06,sents_test,heads_list_all)
