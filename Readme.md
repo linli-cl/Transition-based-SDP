@@ -9,6 +9,8 @@ The main goal of this project is to implement a dependency parser based on a tra
 2. Overview
 * Decoding algorithm:	    Transition-based, ArcStandard.
 * The feature model: 	    Based on Niver(2008) and Zhang and Niver(2011).
+    * Integrating Graph-Based and Transition-Based Dependency Parsers, Niver(2008)
+    * Transition-based Dependency Parsing with Rich Non-local Features, Niver(2011)
 * Machine learning method: Multi-class perceptron.
 * Evaluation : 		    Unlabeled attachment score(UAS).
 
