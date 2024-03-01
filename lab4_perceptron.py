@@ -1,12 +1,20 @@
 import sys
 
-def train_perceptron(epochs,instances,f_len):
+def train_perceptron(epochs,instances,f_len): 
+    '''
+    : parameters:
+        epochs: int, the number of iterations
+        instances: list, feature vector representation of all configurations of all sentences
+        f_len: int, the length of the feature dict
+    : return:
+        w: list, three transitions weights of all features
+    '''
     w=[[0]*f_len,[0]*f_len,[0]*f_len]  #shift, la, ta
     for i in range(epochs):
         total=0
         correct=0
         for inst in instances:  #a sentence
-            for xy in inst:  #a configuration
+            for xy in inst:  #a configuration of a token
                 total += 1
                 y_correct=xy[-1]
                 x=xy[0:-1]
@@ -46,11 +54,10 @@ class Instance:
         #self.ins_f_t_pairs_all=feature_tran_pairs_all_sentences
         self.instances=[] #<vec,t> of all configurations of a sentences of all sentences
 
-
     def get_instances(self,feature_tran_pairs_all_sentences):  #all sentences
         for pairs in feature_tran_pairs_all_sentences: # a sentences
             vector_one_sentence=[]
-            for a_pair in pairs: # a configuration
+            for a_pair in pairs: # a configuration [features, transition] in a token
                 vector_one_c=[]
                 #1. map features to value
                 fs = a_pair[0:-1] #features of this configuration
@@ -58,7 +65,7 @@ class Instance:
                     for f in fs:  # a feature in a configuration
                         if f in self.features_all:
                             f_val= self.features_all[f]  #the num of this feature in all features
-                            vector_one_c.append(f_val)
+                            vector_one_c.append(f_val) 
                         else:
                             pass
                 else:

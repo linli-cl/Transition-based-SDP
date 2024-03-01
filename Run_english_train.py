@@ -14,7 +14,6 @@ import gzip
 filename_train = sys.path[0] + '/treebank/english/train/wsj_train.only-projective.conll06'
 sents_train = read(filename_train)
 
-
 ###----- PART 2: Decoder and Extract Features( use train dates ) -----
 num_sentences = len(sents_train)
 train_data_all_f = FeatureMapping() #get the corpus's features dic
@@ -24,18 +23,22 @@ features_tran_pairs_all_sentences = []  #get all sentences' <features, trans> li
 flag=num_sentences  #print and show the extraction progress
 for i in range(len(sents_train)):   # go through all sentences in corpus
     s_train = Sentence(sents_train, i)  # a sentence in all sentences
-    start = [[0], list(range(1, len(s_train.tokens))), [-1] * len(s_train.tokens)]  #initialize
+    start = [[0], list(range(1, len(s_train.tokens))), [-1] * len(s_train.tokens)]  #initialize [stack,buffer,arcs]
     start_c = State(start)
     start_c_oracle = copy.deepcopy(start_c.state)
     sentence_gold_head_oracle = copy.deepcopy(s_train.tokens_head)
     s_gold_seq, s_gold_c_set = oracle_parse(start_c_oracle, sentence_gold_head_oracle)
                                 #get a sentence's  transitions sequence list & all configurations
-
+    print(s_gold_seq)
+    print(s_gold_c_set)
     features_tran_pairs_one_sentence = []
     for each_c in range(len(s_gold_seq)):  # each configuration # len(seq)+1 = len(configurations)
         features_tran_pairs_str_list=train_data_all_f.extract_feature(s_gold_c_set[each_c],
                                 s_train.tokens,s_train.tokens_lemma,s_train.tokens_pos,s_train.tokens_morph)
-        features_tran_pairs_str_list.append(s_gold_seq[each_c]) #s_gold_seq[each_c]: a transition
+        # print(features_tran_pairs_str_list)
+        # print(s_gold_seq[each_c])
+        # break
+        features_tran_pairs_str_list.append(s_gold_seq[each_c]) #s_gold_seq[each_c]: a transition. each token: [features, transition]
         features_tran_pairs_one_sentence.append(features_tran_pairs_str_list)  #all configurations in one sentences
     features_tran_pairs_all_sentences.append(features_tran_pairs_one_sentence) #all sentences in train corpus
     flag -= 1
@@ -43,7 +46,7 @@ for i in range(len(sents_train)):   # go through all sentences in corpus
 
 ###----- PART 3: Perceptron training -----
 #1.instance
-train_instances_features_all=Instance(train_data_all_f.features_dic)
+train_instances_features_all=Instance(train_data_all_f.features_dic) #get 
 train_instances_features_all.get_instances(features_tran_pairs_all_sentences)
 #2.perceptron
 f_len=len(train_data_all_f.features_dic) #to initialize weight
